@@ -140,8 +140,7 @@ function updateShow(){
     document.getElementById("hasil").innerHTML = hasilID();
     document.getElementById("tabelMatrix").innerHTML = makeTabelDiv();
 }
-function initializeMapVariable() {
-    console.log("hoho");
+function initializeMapVariabel() {
 	var myOptions = {
 	  zoom: 17,
 	  center:  new google.maps.LatLng(-6.891161, 107.610633) ,
@@ -150,17 +149,15 @@ function initializeMapVariable() {
 
 	};
 	
-    console.log("hoho");
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    console.log("hoho");
     initSearchBox(map);
-    console.log("hoho");
     map.addListener('click', function(e) {
         addMarker(e.latLng, map);
         updateShow();
 
+        
+        
     });
-    console.log("hoho");
 }
 
 
@@ -169,7 +166,6 @@ function initializeMapVariable() {
 
 function initSearchBox(map){
     // Create the search box and link it to the UI element.
-    console.log("hoho");
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -227,5 +223,4 @@ function initSearchBox(map){
     });
     map.fitBounds(bounds);
     });
-    console.log("hoho");
 }
