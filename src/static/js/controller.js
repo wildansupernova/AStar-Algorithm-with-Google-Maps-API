@@ -292,7 +292,8 @@ function requestFlask(){
 
 
     //Masukan start node and goal
-
+    dataMasukan.start  = start;
+    dataMasukan.goal = goal;
 
     //
     var data = JSON.stringify(dataMasukan);
