@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8, width=device-width, initial-scale=1" name="viewport" charset="utf-8" />
+        <title>A* with Google Maps</title>
+        <link rel="stylesheet" href="{{ url_for ('static', filename='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css')}}">
+
+        <!-- javascript files -->
+        <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Q7dmBU_Qaw6ahgr21mHOvX44o78Jvx0&libraries=geometry,places"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/labels.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/mapLabel.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/controller.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/ruler.js')}}"></script>
+
+    </head>
+    <body onload="initializeMapVariable();">
+        <div class="container">
+            {% block body %} {% endblock %}
+        </div>
+    </body>
+</html>
