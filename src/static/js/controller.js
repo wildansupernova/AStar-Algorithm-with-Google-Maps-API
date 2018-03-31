@@ -253,3 +253,48 @@ function initSearchBox(map){
     map.fitBounds(bounds);
     });
 }
+
+
+
+
+
+
+function requestFlask(){
+    var dataMasukan = {};
+    var i;
+    var j;
+    // dataMasukan.email = ["wildan@gmail.com","lol@gmail.com"]
+    dataMasukan.size = idGenerate;
+    //Masukan data node latitude and longitude
+    dataMasukan.node = [];
+    for(i=0;i<idGenerate;i++){
+        var position = {
+            "latitude" : markerCollection[i].getPosition().lat(),
+            "longitude" : markerCollection[i].getPosition().lng()
+        }
+        dataMasukan.node.push(position);
+    }
+
+    //Masukan Ajasensi list
+
+    dataMasukan.adj=[]
+
+    for(i=0;i<idGenerate;i++){
+        var listAdj =[];
+        for(j=0;j<ajasensiList[i].length;j++){
+            listAdj.push(ajasensiList[i][j]);
+        }
+        dataMasukan.adj.push(listAdj);
+    }
+
+    //////
+
+
+
+    //Masukan start node and goal
+
+
+    //
+    var data = JSON.stringify(dataMasukan);
+    xhr.send(data);
+}
