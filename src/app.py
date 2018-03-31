@@ -34,8 +34,8 @@ def compute():
     
     # Untuk pemakaian di peta/index.html
     # Klik 2 kali pin/marker untuk memasangkan edge atau sisi ke node lain, node yang ingin dipasangkan juga diklik 2 kali
-    # Klik 1 kali pin/marker untuk menandai start node
-    # Klik kanan 1 kali pin/marker untuk menandai goal Node
+    # Klik 1 kali pin/marker untuk menandai start node , warna akan berubah menjadi ungu
+    # Klik kanan 1 kali pin/marker untuk menandai goal Node , warna akan berubah menjadi kuning , yang ini sabar agak lama
     # Klik pada peta untuk menambahkan pin
     # Pastikan semua kondisi diatas terpenuhi sebelum mengirim request
 
@@ -47,6 +47,7 @@ def compute():
     #Kalo mau ngecek kembaliannya di console lognya sementara,nanti kalo udah selesai bilang biar aku parse di htmlnya
     #Mangats
     #kalo penjelasan diatas ada yang salah atau error langsung bilang ke aku yak.
+    
     return data
 if __name__ == '__main__':
     app.run(debug= True)
