@@ -4,7 +4,8 @@ import math
 activeBranches = []
 edgeList = []
 
-heuristicDistance = lambda x, y :None
+# heuristic distance function for AStar
+heuristicDistance = lambda x, y : None
 
 def EuclideanDistance(node, goalNode):
     return math.sqrt((node.latitude - goalNode.latitude)**2 +(node.longitude - goalNode.longitude)**2)
@@ -51,12 +52,18 @@ def ShortestPath(currBranch, goalNode):
         # return solution
         return currPath
 
+# set default heuristic distance function
+heuristicDistance = EuclideanDistance
+
 def GetShortestPath(startNode, goalNode):
     global heuristicDistance, activeBranches
-    heuristicDistance = EuclideanDistance
     currBranch = ([startNode], 0)
     activeBranches = [currBranch]
     return ShortestPath(currBranch, goalNode)
+
+def SetHeuristicDistanceFunc(distanceFunc):
+    global heuristicDistance
+    heuristicDistance = distanceFunc
 
 def SetEdgeList(iedgeList):
     global edgeList

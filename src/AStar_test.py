@@ -15,7 +15,7 @@ E6 = WeightedEdge(D, S, EuclideanDistance(D, S))
 
 edgeList = [E1, E2, E3, E6, E5]
 SetEdgeList(edgeList)
-
+SetHeuristicDistanceFunc(EuclideanDistance)
 solution = GetShortestPath(A, S)
 
 for node in solution:
