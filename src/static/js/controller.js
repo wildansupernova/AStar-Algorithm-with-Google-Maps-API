@@ -1,11 +1,11 @@
-
-
 var markerCollection = [];
 var ajasensiList = [];
 var idGenerate = 0;
 var selectStatus = false;
 var selectedPin;
 
+var goal =-1;
+var start = -1;
 
 function distance(lat1,lon1,lat2,lon2) {
     var R = 6371; // earth radius , assumption: the earth is like sphere or ball, mountains not counted or other else curve
@@ -28,13 +28,13 @@ function distance(lat1,lon1,lat2,lon2) {
 
 
 function markerAddListener(marker,map){
-    marker.addListener('click',function(){
+    marker.addListener('dblclick',function(){
         if(selectStatus){
             if(marker.id!=markerCollection[selectedPin].id){
                 selectStatus = false;
                 var rulerpoly = new google.maps.Polyline({
                     path: [markerCollection[selectedPin].position, marker.position] ,
-                    strokeColor: "#FFFF00",
+                    strokeColor: "#82e008",
                     strokeOpacity: .7,
                     strokeWeight: 7
                 });
@@ -65,14 +65,43 @@ function markerAddListener(marker,map){
         }
         updateShow();
     });
+    //Double clicl select start node
+    marker.addListener('click',function(){
+        // marker.setIcon('http://wildandicky.me/FrontEnd/assets/purple.png')
+        //alert('lol');
+        if(start==-1){
+            marker.setIcon('http://wildandicky.me/FrontEnd/assets/purple.png');
+            start = marker.id;
+        } else{
+            markerCollection[start].setIcon('https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2.png');
+            marker.setIcon('http://wildandicky.me/FrontEnd/assets/purple.png');
+            start = marker.id;            
+        }
+    });
+
+
+    //Right click set goal
+    marker.addListener('rightclick',function(){
+        // marker.setIcon('http://wildandicky.me/FrontEnd/assets/purple.png')
+        //alert('lol');
+        if(goal==-1){
+            marker.setIcon('http://wildandicky.me/FrontEnd/assets/yellow.png');
+            goal = marker.id;
+        } else{
+            markerCollection[goal].setIcon('https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2.png');
+            marker.setIcon('http://wildandicky.me/FrontEnd/assets/yellow.png');
+            goal = marker.id;            
+        }
+    });
 }
 function addMarker(position,map){
     var marker = new google.maps.Marker({
         position: position,
         map: map,
         label: idGenerate.toString(),
-        id:idGenerate
+        id:idGenerate,
     });
+    //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
     idGenerate++;
     markerCollection.push(marker);
     markerAddListener(marker,map);
