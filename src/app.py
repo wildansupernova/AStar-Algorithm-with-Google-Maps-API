@@ -31,7 +31,54 @@ def compute():
     # Pengaksesan adjasensi list node 0 -> dataDict['adj'][0] (hasil ini adalah list of node, yanng merupakan sisi yang bersisian dengan node 0)
     # Pengaksesan start -> dataDict['start'] , ini adalah node start
     # Pengaksesan goal -> dataDict['goal'] , ini adalah node goal
+    print(dataDict)
+
+    # get nodes from dataDict
+    nodeList = []
+    edgeList = []
+    # create Graph
+    G = Graph(nodeList, edgeList)
     
+    # create and add nodes from dataDict to nodeList
+    for i in range (0, len(dataDict['node'])):
+        N = LocationNode(i, dataDict['node'][i]['longitude'], dataDict['node'][i]['latitude'])
+        G.nodeList.append(N)
+        i += 1
+    
+    # create and add edges from dataDict to edgeList
+    for i in range (0, len(dataDict['adj'])):
+        firstNode = G.nodeList[i]
+        for j in range (0, len(dataDict['adj'][i])):
+            if dataDict['adj'][i][j] > i:
+                secondNode = G.nodeList[dataDict['adj'][i][j]]
+                E = WeightedEdge(firstNode, secondNode, HarversineDistance(firstNode, secondNode))
+                G.edgeList.append(E)
+
+    # set edge list to solve
+    SetEdgeList(G.edgeList)
+    # set heuristic distance func for A* shortest path algorithm
+    SetHeuristicDistanceFunc(HarversineDistance)
+    # get solution path
+    solution = GetShortestPath(G.nodeList[dataDict['start']], G.nodeList[dataDict['goal']])
+    path, cost = solution
+
+    # cast list of nodes in path into only its node indices
+    pathNodeIdx = []
+    for node in path:
+        pathNodeIdx.append(node.value)
+    # for node in pathNodeIdx:
+    #     print(node)
+    # print(cost)
+
+    # get solution as a dictionary with key path and cost
+    solutionDict = {
+        'path' : pathNodeIdx,
+        'cost' : cost
+    }
+
+    # convert the solution dictionary to json to be returned
+    solutionJson = json.dumps(solutionDict)
+
     # Untuk pemakaian di peta/index.html
     # Klik 2 kali pin/marker untuk memasangkan edge atau sisi ke node lain, node yang ingin dipasangkan juga diklik 2 kali
     # Klik 1 kali pin/marker untuk menandai start node , warna akan berubah menjadi ungu
@@ -48,6 +95,7 @@ def compute():
     #Mangats
     #kalo penjelasan diatas ada yang salah atau error langsung bilang ke aku yak.
     
-    return data
+    return solutionJson
+
 if __name__ == '__main__':
     app.run(debug= True)

@@ -19,9 +19,8 @@ class Edge:
 
 class LocationNode(Node):
 
-    def __init__(self, value):
-        name, longitude, latitude = value
-        Node.__init__(self, name)
+    def __init__(self, value, longitude, latitude):
+        Node.__init__(self, value)
         self.longitude = longitude
         self.latitude = latitude
     

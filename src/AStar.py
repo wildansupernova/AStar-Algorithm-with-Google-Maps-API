@@ -42,15 +42,18 @@ def ShortestPath(currBranch, goalNode):
     if(currNode != goalNode):
         # add to active branches every branch node from current node
         for edge in edgeList:
+            # since the edge is two way, match firstNode and secondNode of each edge to currNode
             if edge.firstNode == currNode:
                 activeBranches.append((currPath + [edge.secondNode], currCost + edge.value))
+            elif edge.secondNode == currNode:
+                activeBranches.append((currPath + [edge.firstNode], currCost + edge.value))
         # get the branch which last node has the minimum heuristic distance to the goal node
         minBranch = min(activeBranches, key= lambda x: (heuristicDistance(x[0][-1], goalNode) + x[1]))
         # call recursive of this function from the minimum branch
         return ShortestPath(minBranch, goalNode)
     else:
         # return solution
-        return currPath
+        return currPath, currCost
 
 # set default heuristic distance function
 heuristicDistance = EuclideanDistance
