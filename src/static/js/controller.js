@@ -195,8 +195,10 @@ function initializeMapVariabel() {
 
 function initSearchBox(map){
     // Create the search box and link it to the UI element.
+    
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
+    
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
@@ -255,11 +257,9 @@ function initSearchBox(map){
 }
 
 
-
-
-
-
 function requestFlask(){
+
+
     var dataMasukan = {};
     var i;
     var j;
@@ -296,6 +296,54 @@ function requestFlask(){
     dataMasukan.goal = goal;
 
     //
+
+    var xhr = new XMLHttpRequest();
+    var url = "/compute";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            //console.log(json.email + ", " + json.password);
+            var n = json.path.length;
+            var i;
+            console.log(json.cost);
+            console.log(n);
+            for(i=0;i<n-1;i++){
+                var rulerpoly = new google.maps.Polyline({
+                    path: [markerCollection[json.path[i]].position, markerCollection[json.path[i+1]].position] ,
+                    strokeColor: "#f93b3b",
+                    strokeOpacity: .7,
+                    strokeWeight: 7
+                
+                });
+                rulerpoly.setMap(map);
+                
+            }
+        }
+    };
+
     var data = JSON.stringify(dataMasukan);
     xhr.send(data);
+}
+
+
+
+function restartAll(){
+    markerCollection = [];
+    ajasensiList = [];
+    idGenerate = 0;
+    selectStatus = false;
+    goal =-1;
+    start = -1;
+    var div = document.createElement("INPUT");
+    div.setAttribute("type", "text");
+    div.setAttribute("placeholder", "Search here..");
+    div.setAttribute("class", "controls");
+    div.setAttribute("id", "pac-input");
+
+	document.body.appendChild(div);
+
+    initializeMapVariabel();
+    updateShow();
 }

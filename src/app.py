@@ -78,7 +78,7 @@ def compute():
 
     # convert the solution dictionary to json to be returned
     solutionJson = json.dumps(solutionDict)
-
+    print(solutionJson)
     # Untuk pemakaian di peta/index.html
     # Klik 2 kali pin/marker untuk memasangkan edge atau sisi ke node lain, node yang ingin dipasangkan juga diklik 2 kali
     # Klik 1 kali pin/marker untuk menandai start node , warna akan berubah menjadi ungu
