@@ -36,7 +36,8 @@ function markerAddListener(marker,map){
                     path: [markerCollection[selectedPin].position, marker.position] ,
                     strokeColor: "#82e008",
                     strokeOpacity: .7,
-                    strokeWeight: 7
+                    strokeWeight: 7,
+                    zIndex : 3
                 });
                 rulerpoly.setMap(map);
 
@@ -314,11 +315,10 @@ function requestFlask(){
                     path: [markerCollection[json.path[i]].position, markerCollection[json.path[i+1]].position] ,
                     strokeColor: "#f93b3b",
                     strokeOpacity: .7,
-                    strokeWeight: 7
-                
+                    strokeWeight: 7,
+                    zIndex : 555
                 });
                 rulerpoly.setMap(map);
-                
             }
         }
     };
