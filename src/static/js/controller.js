@@ -1,5 +1,6 @@
 var markerCollection = [];
 var ajasensiList = [];
+var solutionPolylines = [];
 var idGenerate = 0;
 var selectStatus = false;
 var selectedPin;
@@ -64,7 +65,7 @@ function markerAddListener(marker,map){
             selectStatus = true;
             selectedPin = marker.id;
         }
-        updateShow();
+        //updateShow();
     });
     //Double clicl select start node
     marker.addListener('click',function(){
@@ -183,7 +184,7 @@ function initializeMapVariabel() {
     initSearchBox(map);
     map.addListener('click', function(e) {
         addMarker(e.latLng, map);
-        updateShow();
+        //updateShow();
 
         
         
@@ -257,10 +258,14 @@ function initSearchBox(map){
     });
 }
 
+function RemovePolylineDrawing(polyline)
+{
+    polyline.setMap(null);
+}
 
 function requestFlask(){
 
-
+    solutionPolylines.forEach(RemovePolylineDrawing);
     var dataMasukan = {};
     var i;
     var j;
@@ -318,8 +323,10 @@ function requestFlask(){
                     strokeWeight: 7,
                     zIndex : 555
                 });
+                solutionPolylines.push(rulerpoly);
                 rulerpoly.setMap(map);
             }
+            document.getElementById("hasil").innerHTML = "Cost : " + json.cost.toString();
         }
     };
 
@@ -345,5 +352,5 @@ function restartAll(){
 	document.body.appendChild(div);
 
     initializeMapVariabel();
-    updateShow();
+    //updateShow();
 }
